@@ -3,12 +3,8 @@
 import 'package:e_commerce/core/widgets/custom_text_field.dart';
 import 'package:e_commerce/core/widgets/login_register_button.dart';
 import 'package:e_commerce/features/Auth/controllers/register_controller.dart';
-import 'package:e_commerce/features/app_bottom_bar/views/app_bottom_bar.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({Key? key}) : super(key: key);
@@ -51,6 +47,7 @@ class RegisterPage extends GetView<RegisterController> {
                     isPasswordType: false,
                     controller: controller.usernameController,
                     textInputAction: TextInputAction.next,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -59,6 +56,7 @@ class RegisterPage extends GetView<RegisterController> {
                     isPasswordType: false,
                     controller: controller.emailController,
                     textInputAction: TextInputAction.next,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -67,6 +65,7 @@ class RegisterPage extends GetView<RegisterController> {
                     isPasswordType: true,
                     controller: controller.passwordController,
                     textInputAction: TextInputAction.next,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -75,6 +74,7 @@ class RegisterPage extends GetView<RegisterController> {
                     isPasswordType: true,
                     controller: controller.confirmPasswordController,
                     textInputAction: TextInputAction.next,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -83,6 +83,7 @@ class RegisterPage extends GetView<RegisterController> {
                     isPasswordType: false,
                     controller: controller.phoneNumberController,
                     textInputAction: TextInputAction.next,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -91,11 +92,10 @@ class RegisterPage extends GetView<RegisterController> {
                     isPasswordType: false,
                     controller: controller.companyNameController,
                     textInputAction: TextInputAction.done,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
-                  AuthButton(
-                      isLogin: false,
-                      onTap: () => controller.register())
+                  AuthButton(isLogin: false, onTap: () => controller.register())
                 ],
               ),
             ),
@@ -123,5 +123,4 @@ class RegisterPage extends GetView<RegisterController> {
       ],
     );
   }
-
 }
