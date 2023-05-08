@@ -1,5 +1,5 @@
-import 'package:get/get.dart';
 import 'package:e_commerce/core/constants.dart';
+import 'package:get/get.dart';
 import 'package:e_commerce/features/splash/splash_controller.dart';
 import 'package:flutter/material.dart';
 

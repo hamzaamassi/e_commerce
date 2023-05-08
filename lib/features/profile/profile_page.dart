@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
-import 'package:get/get.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
+import 'package:get/get.dart';
 import 'package:e_commerce/core/widgets/custom_text_field.dart';
 import 'package:e_commerce/features/profile/profile_controller.dart';
 import 'package:e_commerce/routes/app_pages.dart';
