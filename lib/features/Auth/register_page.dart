@@ -1,10 +1,9 @@
 // ignore_for_file: avoid_print
-
+import 'package:get/get.dart';
 import 'package:e_commerce/core/widgets/custom_text_field.dart';
 import 'package:e_commerce/core/widgets/login_register_button.dart';
 import 'package:e_commerce/features/Auth/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({Key? key}) : super(key: key);

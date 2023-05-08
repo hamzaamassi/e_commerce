@@ -18,4 +18,5 @@ final List items = [
   Item(imagePath: "assets/images/photo10.jpg", price: 13, name: "انفكتوس"),
   Item(imagePath: "assets/images/photo11.jpg", price: 13, name: "دنهل دزير"),
   Item(imagePath: "assets/images/photo12.jpg", price: 13, name: "أزارو وانتد"),
+
 ];

@@ -33,9 +33,9 @@ class BottomAppBarItem extends StatelessWidget {
                 Text(title ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headline6?.copyWith(
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: isSelected ? Colors.white : Colors.grey))
-            ],
+            ]
           ),
         ),
       ),

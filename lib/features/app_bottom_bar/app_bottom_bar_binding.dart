@@ -8,7 +8,6 @@ class AppBottomBarBinding extends Bindings {
   @override
   void dependencies() {
     Get.put<AppBottomBarController>(AppBottomBarController());
-
     Get.lazyPut<SalesController>(() => SalesController());
     Get.lazyPut<ProductController>(() => ProductController());
     Get.put<ProfileController>(ProfileController());

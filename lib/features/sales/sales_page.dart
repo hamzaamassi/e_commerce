@@ -1,7 +1,7 @@
+import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:e_commerce/core/constants.dart';
 import 'package:e_commerce/features/sales/sales_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class SalesPage extends GetView<SalesController> {
   SalesPage({Key? key}) : super(key: key);
