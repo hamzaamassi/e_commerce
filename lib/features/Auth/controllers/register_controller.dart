@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:e_commerce/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,6 @@ class RegisterController extends GetxController {
     confirmPassword = confirmPasswordController.text.toString();
     phoneNumber = phoneNumberController.text.toString();
     companyName = companyNameController.text.toString();
-    /*TODO use isValidData on User to valid data*/
     if (username.trim().isEmpty) {
       errors.add("Can't empty username".tr);
     }

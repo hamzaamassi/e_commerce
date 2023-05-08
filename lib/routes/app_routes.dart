@@ -1,5 +1,4 @@
 part of 'app_pages.dart';
-// DO NOT EDIT. This is code generated via package:get_cli/get_cli.dart
 
 abstract class Routes {
   Routes._();
@@ -9,6 +8,7 @@ abstract class Routes {
   static const splash = _Paths.splash;
   static const appBottomBar = _Paths.appBottomBar;
   static const profile = _Paths.profile;
+  static const editProfile = _Paths.editProfile;
 }
 
 abstract class _Paths {
@@ -19,5 +19,6 @@ abstract class _Paths {
   static const splash = '/splash';
   static const appBottomBar = '/app_bottom_bar';
   static const home = '/home';
-  static const profile = '/profile_information';
+  static const profile = '/profile';
+  static const editProfile = '/edit_profile';
 }
