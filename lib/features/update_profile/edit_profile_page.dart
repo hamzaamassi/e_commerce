@@ -6,8 +6,8 @@ import 'package:e_commerce/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfilePage extends GetView<ProfileController> {
-  const ProfilePage({Key? key}) : super(key: key);
+class EditProfilePage extends GetView<ProfileController> {
+  const EditProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ProfilePage extends GetView<ProfileController> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            "Profile",
+            "Edit Profile",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
@@ -56,7 +56,7 @@ class ProfilePage extends GetView<ProfileController> {
                     isPasswordType: false,
                     controller: controller.emailController,
                     textInputAction: TextInputAction.none,
-                    enable: false,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -65,7 +65,7 @@ class ProfilePage extends GetView<ProfileController> {
                     isPasswordType: true,
                     controller: controller.passwordController,
                     textInputAction: TextInputAction.none,
-                    enable: false,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -74,7 +74,7 @@ class ProfilePage extends GetView<ProfileController> {
                     isPasswordType: true,
                     controller: controller.confirmPasswordController,
                     textInputAction: TextInputAction.none,
-                    enable: false,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -83,7 +83,7 @@ class ProfilePage extends GetView<ProfileController> {
                     isPasswordType: false,
                     controller: controller.phoneNumberController,
                     textInputAction: TextInputAction.none,
-                    enable: false,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -92,12 +92,12 @@ class ProfilePage extends GetView<ProfileController> {
                     isPasswordType: false,
                     controller: controller.companyNameController,
                     textInputAction: TextInputAction.none,
-                    enable: false,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomGeneralButton(
-                    onTap: () => Get.toNamed(Routes.editProfile),
-                    text: 'Edit',
+                    onTap: () => Get.toNamed(Routes.appBottomBar),
+                    text: 'Save',
                   )
                 ],
               ),
