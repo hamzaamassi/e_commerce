@@ -5,6 +5,10 @@ import 'package:e_commerce/core/widgets/custom_text_field.dart';
 import 'package:e_commerce/core/widgets/login_register_button.dart';
 import 'package:e_commerce/features/Auth/controllers/login_controller.dart';
 import 'package:e_commerce/features/Auth/register_page.dart';
+import 'package:e_commerce/features/app_bottom_bar/views/app_bottom_bar.dart';
+import 'package:e_commerce/features/home/sales_page.dart';
+import 'package:e_commerce/features/product/product_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,7 +45,6 @@ class LoginPage extends GetView<LoginController> {
                 isPasswordType: false,
                 controller: controller.emailController,
                 textInputAction: TextInputAction.next,
-                enable: true,
               ),
               const SizedBox(height: 20),
               CustomTextField(
@@ -50,7 +53,6 @@ class LoginPage extends GetView<LoginController> {
                 isPasswordType: true,
                 controller: controller.passwordController,
                 textInputAction: TextInputAction.done,
-                enable: true,
               ),
               const SizedBox(height: 15),
               forgetPassword(),

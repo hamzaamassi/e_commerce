@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/constants.dart';
 import 'package:flutter/material.dart';
 
 class BottomAppBarItem extends StatelessWidget {
@@ -25,16 +26,22 @@ class BottomAppBarItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                icon,
-                size: 24,
-                color: isSelected ? Colors.white : Colors.grey,
+                icon,size: 24,
+                color:
+                isSelected ? appBarColor : Colors.grey,
               ),
               if (title?.isNotEmpty ?? false)
-                Text(title ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headline6?.copyWith(
-                        color: isSelected ? Colors.white : Colors.grey))
+                Text(
+                  title ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headline6?.copyWith(
+                    color: isSelected
+                        ? appBarColor
+                        : Colors.grey
+
+                  )
+                )
             ],
           ),
         ),
