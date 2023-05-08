@@ -1,9 +1,9 @@
 import 'package:e_commerce/core/constants.dart';
 import 'package:flutter/material.dart';
 
-
 class CustomGeneralButton extends StatelessWidget {
-  const CustomGeneralButton({Key? key, this.text, this.onTap}) : super(key: key);
+  const CustomGeneralButton({Key? key, this.text, this.onTap})
+      : super(key: key);
   final String? text;
   final VoidCallback? onTap;
 
@@ -14,8 +14,9 @@ class CustomGeneralButton extends StatelessWidget {
       child: Container(
         height: 60,
         width: double.infinity,
-        decoration: const BoxDecoration(color: kMainColor),
-        child:  Center(
+        decoration: BoxDecoration(
+            color: appBarColor, borderRadius: BorderRadius.circular(16)),
+        child: Center(
           child: Text(
             text!,
             style: const TextStyle(

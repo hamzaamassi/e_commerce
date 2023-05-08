@@ -25,9 +25,10 @@ class BottomAppBarItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                icon,size: 20,
+                icon,
+                size: 20,
                 color:
-                isSelected ? Theme.of(context).primaryColor : Colors.grey,
+                    isSelected ? Theme.of(context).primaryColor : Colors.grey,
               ),
               if (title?.isNotEmpty ?? false)
                 Text(
@@ -35,10 +36,10 @@ class BottomAppBarItem extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.headline6?.copyWith(
-                    color: isSelected
-                        ? Theme.of(context).primaryColor
-                        : Colors.grey,
-                  ),
+                        color: isSelected
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey,
+                      ),
                 )
             ],
           ),
