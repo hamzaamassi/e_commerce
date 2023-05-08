@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 class EditProfileController extends GetxController {
   TextEditingController usernameController = TextEditingController();

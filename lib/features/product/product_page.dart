@@ -1,8 +1,8 @@
+import 'package:get/get.dart';
 import 'package:e_commerce/core/constants.dart';
 import 'package:e_commerce/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'product_controller.dart';
 
 class ProductPage extends GetView<ProductController> {

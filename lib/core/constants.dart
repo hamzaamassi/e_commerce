@@ -4,4 +4,4 @@ const kMainColor = Color(0xFF69A03A);
 const appBarColor = Color.fromARGB(255, 76, 141, 95);
 const kLogo = 'assets/images/logo.png';
 const kDrawer = 'assets/images/drawer.png';
-const kHome = 'assets/images/home.png';
+const kHomePhoto = 'assets/images/home.png';

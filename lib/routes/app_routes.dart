@@ -21,4 +21,5 @@ abstract class _Paths {
   static const home = '/home';
   static const profile = '/profile';
   static const editProfile = '/edit_profile';
+
 }

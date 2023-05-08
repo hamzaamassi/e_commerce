@@ -4,8 +4,8 @@ import 'package:e_commerce/features/app_bottom_bar/views/bottom_app_bar_item.dar
 import 'package:e_commerce/features/product/product_page.dart';
 import 'package:e_commerce/features/profile/profile_page.dart';
 import 'package:e_commerce/features/sales/sales_page.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 class AppBottomBar extends StatelessWidget {
   AppBottomBar({Key? key}) : super(key: key);

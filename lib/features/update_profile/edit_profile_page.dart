@@ -1,10 +1,10 @@
 // ignore_for_file: avoid_print
+import 'package:get/get.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
 import 'package:e_commerce/core/widgets/custom_text_field.dart';
 import 'package:e_commerce/features/profile/profile_controller.dart';
 import 'package:e_commerce/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class EditProfilePage extends GetView<ProfileController> {
   const EditProfilePage({Key? key}) : super(key: key);

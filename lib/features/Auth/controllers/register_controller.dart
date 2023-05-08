@@ -1,9 +1,9 @@
+import 'package:get/get.dart';
 import 'dart:collection';
 import 'package:e_commerce/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
   TextEditingController usernameController = TextEditingController();

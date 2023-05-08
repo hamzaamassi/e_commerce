@@ -1,7 +1,7 @@
+import 'package:get/get.dart';
 import 'dart:async';
 import 'package:e_commerce/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 
 class SplashController extends GetxController {
   @override
