@@ -11,6 +11,7 @@ import 'package:e_commerce/features/splash/splash_page.dart';
 import 'package:e_commerce/features/update_profile/edit_profile_binding.dart';
 import 'package:e_commerce/features/update_profile/edit_profile_page.dart';
 import 'package:get/get.dart';
+
 part 'app_routes.dart';
 
 class AppPages {
