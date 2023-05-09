@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print
+import 'package:e_commerce/core/constants.dart';
 import 'package:get/get.dart';
 
 import 'package:e_commerce/core/widgets/custom_text_field.dart';
@@ -22,19 +23,9 @@ class RegisterPage extends GetView<RegisterController> {
           ),
         ),
         body: Container(
+          color: mainColor,
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFFCB2B93),
-                Color(0xFF9546C4),
-                Color(0xFF5E61F4),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),

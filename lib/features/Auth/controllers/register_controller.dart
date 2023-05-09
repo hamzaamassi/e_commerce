@@ -63,12 +63,11 @@ class RegisterController extends GetxController {
         .createUserWithEmailAndPassword(
             email: emailController.text, password: passwordController.text)
         .then((value) => {
-              Get.offAndToNamed(Routes.appBottomBar),
               _saveInformationData(),
+              Get.offAndToNamed(Routes.appBottomBar),
             })
         .onError((error, stackTrace) => {});
   }
-
   Future<void> _saveInformationData() async {
     var user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -80,7 +79,9 @@ class RegisterController extends GetxController {
       data["password"] = password;
       data["companyName"] = companyName;
       data["phoneNumber"] = phoneNumber;
-      FirebaseFirestore.instance.collection('user').doc(user.uid).set(data);
+      data["createdAt"] = FieldValue.serverTimestamp(); // add current date and time
+      await FirebaseFirestore.instance.collection('user').doc(user.uid).set(data);
     }
   }
+
 }

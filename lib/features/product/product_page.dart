@@ -12,17 +12,21 @@ class ProductPage extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-          title: const Text("Products Page"),
-          centerTitle: true,
-          backgroundColor: appBarColor),
-      body: ElevatedButton(
-        onPressed: () {
-          FirebaseAuth.instance.signOut();
-          Get.offAndToNamed(Routes.login);
-        },
-        child: const Text("Logout"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                Get.offAndToNamed(Routes.login);
+              },
+              icon: const Icon(Icons.logout))
+        ],
+        backgroundColor: mainColor,
+        elevation: 0,
+        title: const Text(
+          "Products",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

@@ -1,20 +1,20 @@
 // ignore_for_file: avoid_print
+import 'package:e_commerce/core/constants.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
+import 'package:e_commerce/features/edit_profile/edit_profile_controller.dart';
 import 'package:get/get.dart';
 import 'package:e_commerce/core/widgets/custom_text_field.dart';
-import 'package:e_commerce/features/profile/profile_controller.dart';
-import 'package:e_commerce/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
-class EditProfilePage extends GetView<ProfileController> {
-  const EditProfilePage({Key? key}) : super(key: key);
+class EditProfilePage extends GetView<EditProfileController> {
+   EditProfilePage({Key? key}) : super(key: key);
+  // final EditProfileController editProfileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: mainColor,
           elevation: 0,
           title: const Text(
             "Edit Profile",
@@ -22,32 +22,22 @@ class EditProfilePage extends GetView<ProfileController> {
           ),
         ),
         body: Container(
+          color: mainColor,
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFFCB2B93),
-                Color(0xFF9546C4),
-                Color(0xFF5E61F4),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 200),
+                  const SizedBox(height: 100),
                   CustomTextField(
                     text: "Username",
                     icon: Icons.person_outlined,
                     isPasswordType: false,
                     controller: controller.usernameController,
-                    textInputAction: TextInputAction.none,
-                    enable: false,
+                    textInputAction: TextInputAction.next,
+                    enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -55,8 +45,8 @@ class EditProfilePage extends GetView<ProfileController> {
                     icon: Icons.email_outlined,
                     isPasswordType: false,
                     controller: controller.emailController,
-                    textInputAction: TextInputAction.none,
-                    enable: true,
+                    textInputAction: TextInputAction.next,
+                    enable: false,
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
@@ -64,7 +54,7 @@ class EditProfilePage extends GetView<ProfileController> {
                     icon: Icons.lock_outline,
                     isPasswordType: true,
                     controller: controller.passwordController,
-                    textInputAction: TextInputAction.none,
+                    textInputAction: TextInputAction.next,
                     enable: true,
                   ),
                   const SizedBox(height: 20),
@@ -73,7 +63,7 @@ class EditProfilePage extends GetView<ProfileController> {
                     icon: Icons.lock_outline,
                     isPasswordType: true,
                     controller: controller.confirmPasswordController,
-                    textInputAction: TextInputAction.none,
+                    textInputAction: TextInputAction.next,
                     enable: true,
                   ),
                   const SizedBox(height: 20),
@@ -82,7 +72,7 @@ class EditProfilePage extends GetView<ProfileController> {
                     icon: Icons.phone_outlined,
                     isPasswordType: false,
                     controller: controller.phoneNumberController,
-                    textInputAction: TextInputAction.none,
+                    textInputAction: TextInputAction.next,
                     enable: true,
                   ),
                   const SizedBox(height: 20),
@@ -91,12 +81,12 @@ class EditProfilePage extends GetView<ProfileController> {
                     icon: Icons.group_work_outlined,
                     isPasswordType: false,
                     controller: controller.companyNameController,
-                    textInputAction: TextInputAction.none,
+                    textInputAction: TextInputAction.done,
                     enable: true,
                   ),
                   const SizedBox(height: 20),
                   CustomGeneralButton(
-                    onTap: () => Get.toNamed(Routes.appBottomBar),
+                    onTap: () => controller.onSave(),
                     text: 'Save',
                   )
                 ],
