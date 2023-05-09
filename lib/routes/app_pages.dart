@@ -4,12 +4,13 @@ import 'package:e_commerce/features/Auth/login_page.dart';
 import 'package:e_commerce/features/Auth/register_page.dart';
 import 'package:e_commerce/features/app_bottom_bar/app_bottom_bar_binding.dart';
 import 'package:e_commerce/features/app_bottom_bar/views/app_bottom_bar.dart';
+import 'package:e_commerce/features/edit_profile/edit_profile_binding.dart';
+import 'package:e_commerce/features/edit_profile/edit_profile_page.dart';
 import 'package:e_commerce/features/profile/profile_binding.dart';
 import 'package:e_commerce/features/profile/profile_page.dart';
 import 'package:e_commerce/features/sales/sales_page.dart';
 import 'package:e_commerce/features/splash/splash_page.dart';
-import 'package:e_commerce/features/update_profile/edit_profile_binding.dart';
-import 'package:e_commerce/features/update_profile/edit_profile_page.dart';
+
 import 'package:get/get.dart';
 
 part 'app_routes.dart';

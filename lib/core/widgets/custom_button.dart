@@ -15,12 +15,12 @@ class CustomGeneralButton extends StatelessWidget {
         height: 60,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: appBarColor, borderRadius: BorderRadius.circular(16)),
+            color: Colors.white, borderRadius: BorderRadius.circular(16)),
         child: Center(
           child: Text(
             text!,
             style: const TextStyle(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
+                fontSize: 18, color: mainColor, fontWeight: FontWeight.w500),
             textAlign: TextAlign.left,
           ),
         ),

@@ -19,7 +19,7 @@ class PerfumeMarketing extends StatelessWidget {
     return GetMaterialApp(
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      color: appBarColor,
+      color: mainColor,
       theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
     );

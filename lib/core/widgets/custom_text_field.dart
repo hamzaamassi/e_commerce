@@ -20,26 +20,27 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+
         controller: controller,
         enabled: enable,
         obscureText: isPasswordType,
         enableSuggestions: !isPasswordType,
         autocorrect: isPasswordType,
         cursorColor: Colors.white,
-        style: TextStyle(color: Colors.white.withOpacity(0.9)),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,
-            color: Colors.white70,
+            color: Colors.white,
           ),
           labelText: text,
-          labelStyle: TextStyle(color: Colors.white.withOpacity(0.9)),
+          labelStyle: const TextStyle(color: Colors.white),
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.never,
           fillColor: Colors.white.withOpacity(0.3),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
-            borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+            borderSide: const BorderSide(width: 0, style: BorderStyle.solid,color: Colors.white),
           ),
         ),
         keyboardType: isPasswordType

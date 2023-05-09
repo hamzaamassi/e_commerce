@@ -31,7 +31,7 @@ class AppBottomBar extends StatelessWidget {
   buildBottomNavigationBar(BuildContext context) {
     return Container(
       height: 56,
-      decoration: BoxDecoration(color: appBarColor, boxShadow: [
+      decoration: BoxDecoration(color: mainColor, boxShadow: [
         BoxShadow(
           color: Colors.grey.withOpacity(0.5),
           spreadRadius: 5,

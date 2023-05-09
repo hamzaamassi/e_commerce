@@ -14,17 +14,7 @@ class SplashPage extends GetView<SplashController> {
         body: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFCB2B93),
-                  Color(0xFF9546C4),
-                  Color(0xFF5E61F4),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+color: mainColor,
             child: Center(
               child: Image.asset(
                 'assets/images/logo.png',
