@@ -21,7 +21,7 @@ class PerfumeMarketing extends StatelessWidget {
       getPages: AppPages.routes,
       color: mainColor,
       theme: ThemeData(fontFamily: 'Poppins'),
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
     );
   }
 }
