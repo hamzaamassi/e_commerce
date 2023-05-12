@@ -20,7 +20,8 @@ class ProductsPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed(Routes.addProduct),
-        child: Icon(Icons.add_shopping_cart_outlined, size: 36,color: mainColor),
+        child:
+            Icon(Icons.add_shopping_cart_outlined, size: 36, color: mainColor),
         backgroundColor: Colors.white,
       ),
       body: Obx(() {
@@ -31,7 +32,7 @@ class ProductsPage extends StatelessWidget {
             crossAxisCount: 2,
             children: List.generate(
               controller.products.length,
-              (index) => ProductsCard(),
+              (index) => ProductsCard(controller.products[index]),
             ),
           );
         }

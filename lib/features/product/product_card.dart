@@ -9,8 +9,12 @@ class ProductsCard extends StatelessWidget {
   late final ProductsModel product;
   final ProductsController controller = Get.find();
 
+  ProductsCard(ProductsModel prduct) {
+    this.product = prduct;
+  }
+
   void _sellProduct() {
-    Get.toNamed(Routes.sales, arguments: product.productId);
+    // Get.toNamed(Routes.sales, arguments: product.productId);
   }
 
   void _removeProduct() {
@@ -23,13 +27,13 @@ class ProductsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (product.image.isNotEmpty)
-            Image.network(
-              product.image,
-              height: 200,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
+          // if (product.image.isNotEmpty)
+          //   Image.network(
+          //     product.image,
+          //     height: 200,
+          //     width: double.infinity,
+          //     fit: BoxFit.cover,
+          //   ),
           Padding(
             padding: EdgeInsets.all(16),
             child: Column(
@@ -55,7 +59,7 @@ class ProductsCard extends StatelessWidget {
                   children: [
                     CustomGeneralButton(
                       onTap: _sellProduct,
-                      text:'Sell',
+                      text: 'Sell',
                     ),
                     IconButton(
                       onPressed: _removeProduct,
