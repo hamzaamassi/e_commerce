@@ -3,7 +3,7 @@ import 'package:e_commerce/features/app_bottom_bar/controllers/app_bottom_bar_co
 import 'package:e_commerce/features/app_bottom_bar/views/bottom_app_bar_item.dart';
 import 'package:e_commerce/features/product/product_page.dart';
 import 'package:e_commerce/features/profile/profile_page.dart';
-import 'package:e_commerce/features/sales/sales_page.dart';
+import 'package:e_commerce/features/sales/sale_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +12,7 @@ class AppBottomBar extends StatelessWidget {
   final AppBottomBarController controller = Get.find();
 
   final List<Widget> _pages = <Widget>[
-    ProductPage(),
+    ProductsPage(),
     SalesPage(),
     ProfilePage(),
   ];
