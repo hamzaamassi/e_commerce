@@ -1,33 +1,41 @@
 import 'package:e_commerce/core/constants.dart';
-import 'package:get/get.dart';
+import 'package:e_commerce/features/product/product_card.dart';
+import 'package:e_commerce/features/product/product_controller.dart';
 import 'package:e_commerce/routes/app_pages.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'product_controller.dart';
+import 'package:get/get.dart';
 
-class ProductPage extends GetView<ProductController> {
-  ProductPage({Key? key}) : super(key: key);
-  final ProductController productController = Get.find();
+class ProductsPage extends StatelessWidget {
+  final ProductsController controller = Get.put(ProductsController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: mainColor,
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Get.offAndToNamed(Routes.login);
-              },
-              icon: const Icon(Icons.logout))
-        ],
+        title: Text('Products',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         backgroundColor: mainColor,
         elevation: 0,
-        title: const Text(
-          "Products",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.toNamed(Routes.addProduct),
+        child: Icon(Icons.add_shopping_cart_outlined, size: 36,color: mainColor),
+        backgroundColor: Colors.white,
+      ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return GridView.count(
+            crossAxisCount: 2,
+            children: List.generate(
+              controller.products.length,
+              (index) => ProductsCard(),
+            ),
+          );
+        }
+      }),
     );
   }
 }

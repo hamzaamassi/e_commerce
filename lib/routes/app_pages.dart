@@ -6,9 +6,13 @@ import 'package:e_commerce/features/app_bottom_bar/app_bottom_bar_binding.dart';
 import 'package:e_commerce/features/app_bottom_bar/views/app_bottom_bar.dart';
 import 'package:e_commerce/features/edit_profile/edit_profile_binding.dart';
 import 'package:e_commerce/features/edit_profile/edit_profile_page.dart';
+import 'package:e_commerce/features/product/add_product_page.dart';
+import 'package:e_commerce/features/product/product_binding.dart';
+import 'package:e_commerce/features/product/product_page.dart';
 import 'package:e_commerce/features/profile/profile_binding.dart';
 import 'package:e_commerce/features/profile/profile_page.dart';
-import 'package:e_commerce/features/sales/sales_page.dart';
+import 'package:e_commerce/features/sales/sale_binding.dart';
+import 'package:e_commerce/features/sales/sale_page.dart';
 import 'package:e_commerce/features/splash/splash_page.dart';
 
 import 'package:get/get.dart';
@@ -22,13 +26,9 @@ class AppPages {
 
   static final routes = [
     GetPage(
-        name: _Paths.appBottomBar,
-        page: () => AppBottomBar(),
-        binding: AppBottomBarBinding()),
-    GetPage(
-      name: _Paths.home,
-      page: () => SalesPage(),
-      binding: AuthBinding(),
+      name: _Paths.appBottomBar,
+      page: () => AppBottomBar(),
+      binding: AppBottomBarBinding(),
     ),
     GetPage(
       name: _Paths.login,
@@ -46,12 +46,29 @@ class AppPages {
       binding: AuthBinding(),
     ),
     GetPage(
-        name: _Paths.profile,
-        page: () => ProfilePage(),
-        binding: ProfileBinding()),
+      name: _Paths.profile,
+      page: () => ProfilePage(),
+      binding: ProfileBinding(),
+    ),
     GetPage(
-        name: _Paths.editProfile,
-        page: () => EditProfilePage(),
-        binding: EditProfileBinding()),
+      name: _Paths.editProfile,
+      page: () => EditProfilePage(),
+      binding: EditProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.products,
+      page: () => ProductsPage(),
+      binding: ProductsBinding(),
+    ),
+    GetPage(
+      name: _Paths.addProduct,
+      page: () => AddProductPage(),
+      binding: ProductsBinding(),
+    ),
+    GetPage(
+      name: _Paths.sales,
+    page: () => SalesPage(),
+    binding: SalesBinding(),
+    ),
   ];
 }

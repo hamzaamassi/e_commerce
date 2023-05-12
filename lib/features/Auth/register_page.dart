@@ -33,6 +33,13 @@ class RegisterPage extends GetView<RegisterController> {
                 children: [
                   const SizedBox(height: 200),
                   CustomTextField(
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter a Username';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.name,
                     text: "Username",
                     icon: Icons.person_outlined,
                     isPasswordType: false,
@@ -42,6 +49,13 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter an Email';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.emailAddress,
                     text: "Email",
                     icon: Icons.email_outlined,
                     isPasswordType: false,
@@ -51,6 +65,16 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter a Password';
+                      }
+                      if (value!.length < 6) {
+                        return 'The password too short';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.text,
                     text: "Password",
                     icon: Icons.lock_outline,
                     isPasswordType: true,
@@ -60,6 +84,16 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter a Confirm password';
+                      }
+                      if (value!.length < 6) {
+                        return 'The password not same length';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.text,
                     text: "Confirm password",
                     icon: Icons.lock_outline,
                     isPasswordType: true,
@@ -69,6 +103,16 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter a Phone number';
+                      }
+                      if (value!.length < 10) {
+                        return 'Please enter a Correct phone number';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.number,
                     text: "Phone Number",
                     icon: Icons.phone_outlined,
                     isPasswordType: false,
@@ -78,6 +122,13 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return 'Please enter a Company name';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.name,
                     text: "Company Name",
                     icon: Icons.group_work_outlined,
                     isPasswordType: false,

@@ -1,4 +1,6 @@
 // ignore_for_file: avoid_print
+
+
 import 'package:e_commerce/core/constants.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +11,7 @@ import 'package:e_commerce/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends GetView<ProfileController> {
-   ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class ProfilePage extends GetView<ProfileController> {
                 children: [
                   const SizedBox(height: 100),
                   CustomTextField(
+                    keyboardType: TextInputType.name,
                     text: "Username",
                     icon: Icons.person_outlined,
                     isPasswordType: false,
@@ -50,6 +53,7 @@ class ProfilePage extends GetView<ProfileController> {
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
+                    keyboardType: TextInputType.emailAddress,
                     text: "Email",
                     icon: Icons.email_outlined,
                     isPasswordType: false,
@@ -59,6 +63,7 @@ class ProfilePage extends GetView<ProfileController> {
                   ),
                   const SizedBox(height: 20),
                   CustomTextField(
+                    keyboardType: TextInputType.number,
                     text: "Phone Number",
                     icon: Icons.phone_outlined,
                     isPasswordType: false,
@@ -74,6 +79,7 @@ class ProfilePage extends GetView<ProfileController> {
                     controller: controller.companyNameController,
                     textInputAction: TextInputAction.none,
                     enable: false,
+                    keyboardType: TextInputType.name,
                   ),
                   const SizedBox(height: 20),
                   CustomGeneralButton(
