@@ -41,6 +41,7 @@ class ProductsController extends GetxController {
     } catch (error) {
       print('Error fetching products: $error');
     }
+    isLoading.value = false;
   }
 
   Future<void> addProduct(ProductsModel product) async {

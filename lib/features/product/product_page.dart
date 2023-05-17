@@ -26,7 +26,7 @@ class ProductsPage extends StatelessWidget {
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator(color: Colors.white,));
         } else {
           return GridView.count(
             crossAxisCount: 2,
