@@ -1,7 +1,6 @@
 import 'package:e_commerce/core/widgets/custom_button.dart';
 import 'package:e_commerce/features/product/product_controller.dart';
 import 'package:e_commerce/model/product.dart';
-import 'package:e_commerce/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,10 +15,10 @@ class ProductsCard extends StatelessWidget {
   void _sellProduct() {
     // Get.toNamed(Routes.sales, arguments: product.productId);
   }
-
-  void _removeProduct() {
-    controller.removeProduct(product.productId);
-  }
+  //
+  // void _removeProduct() {
+  //   controller.removeProduct(product.productId);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +29,8 @@ class ProductsCard extends StatelessWidget {
           // if (product.image.isNotEmpty)
           //   Image.network(
           //     product.image,
-          //     height: 200,
-          //     width: double.infinity,
+          //     height: 50,
+          //     width: 50,
           //     fit: BoxFit.cover,
           //   ),
           Padding(
@@ -61,10 +60,10 @@ class ProductsCard extends StatelessWidget {
                       onTap: _sellProduct,
                       text: 'Sell',
                     ),
-                    IconButton(
-                      onPressed: _removeProduct,
-                      icon: Icon(Icons.delete),
-                    ),
+                    // IconButton(
+                    //   onPressed: _removeProduct,
+                    //   icon: Icon(Icons.delete),
+                    // ),
                   ],
                 ),
               ],
