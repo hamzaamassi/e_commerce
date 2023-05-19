@@ -3,37 +3,37 @@ class SalesModel {
   String productId;
   String productName;
   int quantity;
-  double price;
   double totalPrice;
+  int quantityAfterSale;
 
   SalesModel({
     required this.saleId,
     required this.productId,
     required this.productName,
     required this.quantity,
-    required this.price,
     required this.totalPrice,
+    required this.quantityAfterSale,
   });
 
-  factory SalesModel.fromJson(Map<String, dynamic> json) {
+  factory SalesModel.fromMap(Map<String, dynamic> map) {
     return SalesModel(
-      saleId: json['saleId'],
-      productId: json['productId'],
-      productName: json['productName'],
-      quantity: json['quantity'],
-      price: json['price'],
-      totalPrice: json['totalPrice'],
+      saleId: map['saleId'],
+      productId: map['productId'],
+      productName: map['name'],
+      quantity: map['quantity'],
+      totalPrice: map['totalPrice'],
+      quantityAfterSale: map['quantityAfterSale'],
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'saleId': saleId,
       'productId': productId,
-      'productName': productName,
+      'name': productName,
       'quantity': quantity,
-      'price': price,
-      'totalPrice': totalPrice,
+      'price': totalPrice,
+      'quantityAfterSale': quantityAfterSale,
     };
   }
 }

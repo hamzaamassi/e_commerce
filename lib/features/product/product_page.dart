@@ -5,9 +5,7 @@ import 'package:e_commerce/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProductsPage extends StatelessWidget {
-  final ProductsController controller = Get.put(ProductsController());
-
+class ProductsPage extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,19 +22,23 @@ class ProductsPage extends StatelessWidget {
             Icon(Icons.add_shopping_cart_outlined, size: 36, color: mainColor),
         backgroundColor: Colors.white,
       ),
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return Center(child: CircularProgressIndicator(color: Colors.white,));
-        } else {
-          return GridView.count(
-            crossAxisCount: 2,
-            children: List.generate(
-              controller.products.length,
-              (index) => ProductsCard(controller.products[index]),
-            ),
-          );
-        }
-      }),
+      body: 5 == 6
+          ? SizedBox.shrink()
+          : Obx(() {
+              if (controller.isLoading.value) {
+                return Center(
+                    child: CircularProgressIndicator(
+                  color: Colors.white,
+                ));
+              } else {
+                return ListView(
+                  children: List.generate(
+                    controller.products.length,
+                    (index) => ProductsCard(controller.products[index]),
+                  ),
+                );
+              }
+            }),
     );
   }
 }

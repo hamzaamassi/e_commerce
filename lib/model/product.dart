@@ -3,23 +3,31 @@ class ProductsModel {
   final String name;
   late final int quantity;
   final double price;
-  final String image;
+  // final String image;
 
   ProductsModel({
     required this.productId,
     required this.name,
     required this.quantity,
     required this.price,
-    required this.image,
+    // required this.image,
   });
 
-  Map<String, dynamic> toJson() {
+  factory ProductsModel.fromMap(Map<String, dynamic> map) {
+    return ProductsModel(
+      productId: map['productId'],
+      name: map['name'],
+      quantity: map['quantity'],
+      price: map['price'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
     return {
       'productId': productId,
       'name': name,
       'quantity': quantity,
       'price': price,
-      'image': image,
     };
   }
 }
