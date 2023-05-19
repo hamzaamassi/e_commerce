@@ -1,56 +1,65 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/model/product.dart';
 import 'package:e_commerce/model/sale.dart';
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class SalesController with ChangeNotifier {
-  final CollectionReference _salesRef =
-  FirebaseFirestore.instance.collection('sales');
+class SalesController extends GetxController {
+  final RxList<SalesModel> sales = <SalesModel>[].obs;
+  final RxList<ProductsModel> products = <ProductsModel>[].obs;
+  final RxBool isLoading = true.obs;
 
-  List<SalesModel> _sales = [];
 
-  List<SalesModel> get sales => [..._sales];
-
-  Future<void> fetchSales() async {
-    try {
-      final querySnapshot = await _salesRef.get();
-      final docs = querySnapshot.docs.map((doc) => SalesModel.fromJson(doc as Map<String, dynamic>)).toList();
-      _sales = docs;
-      notifyListeners();
-    } catch (error) {
-      print(error);
-    }
+  @override
+  void onInit() {
+    super.onInit();
+    fetchProducts();
   }
 
-  Future<void> addSale(SalesModel sale) async {
-    try {
-      await _salesRef.add(sale.toJson());
-      _sales.add(sale);
-      notifyListeners();
-    } catch (error) {
-      print(error);
-    }
+  void removeProduct(String saleId, String productId,int productQuantity,int salesQuantity) {
+    FirebaseFirestore.instance.collection('sales').doc(saleId).delete();
+    Get.snackbar('Success', 'Deleted Successfully');
+    updateProductQuantity(productId, productQuantity + salesQuantity);
+
+
   }
 
-  Future<void> updateSale(SalesModel sale) async {
+  Future<void> fetchProducts() async {
     try {
-      await _salesRef.doc(sale.saleId).update(sale.toJson());
-      final index = _sales.indexWhere((s) => s.saleId == sale.saleId);
-      if (index >= 0) {
-        _sales[index] = sale;
-        notifyListeners();
+      final snapshot =
+      await FirebaseFirestore.instance.collection('sales').get();
+      sales.value = snapshot.docs.map((doc) {
+        final data = doc.data();
+        return SalesModel(
+          productId: data['productId'],
+          saleId: data['saleId'],
+          productName: data['name'],
+          totalPrice: data['totalPrice'],
+          quantity: data['quantity'],
+          quantityAfterSale: data['quantityAfterSale'],
+          // image: data['image'],
+        );
+      }).toList();
+      isLoading.value = false;
+    } catch (error) {
+      print('Error fetching products: $error');
+    }
+    isLoading.value = false;
+  }
+
+  Future<void> updateProductQuantity(String productId, int newQuantity) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('product')
+          .doc(productId)
+          .update({'quantity': newQuantity});
+      final productIndex =
+      products.indexWhere((product) => product.productId == productId);
+      if (productIndex != -1) {
+        products[productIndex].quantity = newQuantity;
       }
     } catch (error) {
-      print(error);
+      print('Error updating product quantity: $error');
     }
   }
 
-  Future<void> removeSale(String saleId) async {
-    try {
-      await _salesRef.doc(saleId).delete();
-      _sales.removeWhere((s) => s.saleId == saleId);
-      notifyListeners();
-    } catch (error) {
-      print(error);
-    }
-  }
 }

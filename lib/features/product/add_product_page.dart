@@ -1,73 +1,12 @@
-import 'dart:io';
 import 'package:e_commerce/core/constants.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
 import 'package:e_commerce/core/widgets/custom_text_field.dart';
 import 'package:e_commerce/features/product/product_controller.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:e_commerce/model/product.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class AddProductPage extends StatelessWidget {
-  final ProductsController controller = Get.find();
-
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _quantityController = TextEditingController();
-  final _priceController = TextEditingController();
-  final _imagePicker = ImagePicker();
-
-  File? _image;
-
-  Future<void> _selectImage(ImageSource source) async {
-    final pickedFile = await _imagePicker.pickImage(source: source);
-    if (pickedFile != null) {
-      _image = File(pickedFile.path);
-    }
-  }
-
-  void _saveProduct() {
-    if (_formKey.currentState?.validate() ?? false) {
-      final name = _nameController.text.trim();
-      final quantity = int.parse(_quantityController.text.trim());
-      final price = double.parse(_priceController.text.trim());
-      final productId = UniqueKey().toString();
-      final storageRef =
-          FirebaseStorage.instance.ref().child('products/$productId');
-      if (_image != null) {
-        storageRef.putFile(_image!);
-        storageRef.putFile(_image!).then((snapshot) {
-          snapshot.ref.getDownloadURL().then((imageUrl) {
-            final product = ProductsModel(
-              productId: productId,
-              name: name,
-              quantity: quantity,
-              price: price,
-              image: imageUrl,
-            );
-            controller.addProduct(product);
-            Get.back();
-          }).catchError((error) {
-            // Handle any errors that occur during the upload process
-            print('Error uploading image: $error');
-            Get.snackbar('Error', 'Error uploading image');
-          });
-        });
-      } else {
-        final product = ProductsModel(
-          productId: productId,
-          name: name,
-          quantity: quantity,
-          price: price,
-          image: '',
-        );
-        controller.addProduct(product);
-        Get.back();
-      }
-    }
-  }
-
+class AddProductPage extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,12 +20,12 @@ class AddProductPage extends StatelessWidget {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Form(
-          key: _formKey,
+          key: controller.formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextField(
-                controller: _nameController,
+                controller: controller.nameController,
                 decoration: InputDecoration(labelText: 'Name'),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
@@ -103,7 +42,7 @@ class AddProductPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               CustomTextField(
-                controller: _quantityController,
+                controller: controller.quantityController,
                 decoration: InputDecoration(labelText: 'Quantity'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -124,7 +63,7 @@ class AddProductPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               CustomTextField(
-                controller: _priceController,
+                controller: controller.priceController,
                 decoration: InputDecoration(labelText: 'Price'),
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 validator: (value) {
@@ -147,14 +86,15 @@ class AddProductPage extends StatelessWidget {
               Row(
                 children: [
                   TextButton.icon(
-                    onPressed: () => _selectImage(ImageSource.camera),
+                    onPressed: () => controller.selectImage(ImageSource.camera),
                     icon: Icon(Icons.camera_alt, color: Colors.white),
                     label: Text('Take a photo',
                         style: TextStyle(color: Colors.white)),
                   ),
                   SizedBox(width: 16),
                   TextButton.icon(
-                    onPressed: () => _selectImage(ImageSource.gallery),
+                    onPressed: () =>
+                        controller.selectImage(ImageSource.gallery),
                     icon: Icon(Icons.image, color: Colors.white),
                     label: Text('Choose from gallery',
                         style: TextStyle(color: Colors.white)),
@@ -162,10 +102,10 @@ class AddProductPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 16),
-              if (_image != null) Image.file(_image!),
+              if (controller.image != null) Image.file(controller.image!),
               SizedBox(height: 16),
               CustomGeneralButton(
-                onTap: _saveProduct,
+                onTap: controller.storeProduct,
                 text: 'Save',
               ),
             ],
