@@ -31,11 +31,47 @@ class ProductsPage extends GetView<ProductsController> {
                   color: Colors.white,
                 ));
               } else {
-                return ListView(
-                  children: List.generate(
-                    controller.products.length,
-                    (index) => ProductsCard(controller.products[index]),
-                  ),
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextField(
+                        onChanged: controller.searchProducts,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          labelText: 'Search',
+                          labelStyle: TextStyle(
+                              color: Colors.white), // Change label color
+                          prefixIcon: Icon(Icons.search,
+                              color: Colors.white), // Change prefix icon color
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                                color: Colors
+                                    .white), // Change outline border color
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                                color: Colors
+                                    .white), // Change focused border color
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView(
+                        children: List.generate(
+                          controller.displayedProducts.length,
+                          (index) =>
+                              ProductsCard(controller.displayedProducts[index]),
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               }
             }),

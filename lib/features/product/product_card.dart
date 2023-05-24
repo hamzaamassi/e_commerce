@@ -12,56 +12,68 @@ class ProductsCard extends GetView<ProductsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.name,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Quantity: ${product.quantity}',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Price: ${product.price} \$',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: 16),
-                  ],
-                ),
-              ],
+    return Container(
+      margin: EdgeInsets.only(right: 16, left: 16, top: 16),
+      child: Card(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.name,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Quantity: ${product.quantity}',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Price: ${product.price} \$',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(height: 16),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () => controller.showSalesDialog(context, product),
-            child: Text('Buy'),
-          ),
-          // product.image.isNotEmpty?
-          //   Image.network(
-          //     product.image,
-          //     height: 100,
-          //     width: 100,
-          //     fit: BoxFit.cover,
-          //   ):
-          //   Image.asset(
-          //     kLogo,
-          //     width: 120,
-          //     height: 120,
-          //   )
-        ],
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF69A03A),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                onPressed: () => controller.showSalesDialog(context, product),
+                child: Text('Buy'),
+              ),
+            ),
+            // product.image.isNotEmpty?
+            //   Image.network(
+            //     product.image,
+            //     height: 100,
+            //     width: 100,
+            //     fit: BoxFit.cover,
+            //   ):
+            //   Image.asset(
+            //     kLogo,
+            //     width: 120,
+            //     height: 120,
+            //   )
+          ],
+        ),
       ),
     );
   }
