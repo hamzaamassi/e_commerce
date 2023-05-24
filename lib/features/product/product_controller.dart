@@ -19,7 +19,9 @@ class ProductsController extends GetxController {
   final RxList<ProductsModel> products = <ProductsModel>[].obs;
   final RxBool isLoading = true.obs;
   final RxList<SalesModel> sales = <SalesModel>[].obs;
-  late final int quantityAfterSale ;
+  final RxList<ProductsModel> displayedProducts = <ProductsModel>[].obs;
+
+  late final int quantityAfterSale;
 
   @override
   void onInit() {
@@ -41,6 +43,8 @@ class ProductsController extends GetxController {
           // image: data['image'],
         );
       }).toList();
+      displayedProducts.value = List.from(products);
+
       isLoading.value = false;
     } catch (error) {
       print('Error fetching products: $error');
@@ -166,7 +170,8 @@ class ProductsController extends GetxController {
           .doc(productId)
           .set(data);
       Get.back();
-      Get.snackbar('Success', 'Success Adding product',backgroundColor: Colors.white  );
+      Get.snackbar('Success', 'Success Adding product',
+          backgroundColor: Colors.white);
       // } else {
       //   data["productId"] = productId;
       //   data["name"] = name;
@@ -186,5 +191,13 @@ class ProductsController extends GetxController {
       quantityController.clear();
       priceController.clear();
     }
+  }
+
+  void searchProducts(String query) {
+    final lowercaseQuery = query.toLowerCase();
+    displayedProducts.value = products.where((product) {
+      final lowercaseName = product.name.toLowerCase();
+      return lowercaseName.contains(lowercaseQuery);
+    }).toList();
   }
 }
