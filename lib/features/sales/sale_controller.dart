@@ -7,7 +7,7 @@ class SalesController extends GetxController {
   final RxList<SalesModel> sales = <SalesModel>[].obs;
   final RxList<ProductsModel> products = <ProductsModel>[].obs;
   final RxBool isLoading = true.obs;
-
+  final RxList<SalesModel> displayedSales = <SalesModel>[].obs;
 
   @override
   void onInit() {
@@ -15,18 +15,17 @@ class SalesController extends GetxController {
     fetchProducts();
   }
 
-  void removeProduct(String saleId, String productId,int productQuantity,int salesQuantity) {
+  void removeProduct(
+      String saleId, String productId, int productQuantity, int salesQuantity) {
     FirebaseFirestore.instance.collection('sales').doc(saleId).delete();
     Get.snackbar('Success', 'Deleted Successfully');
     updateProductQuantity(productId, productQuantity + salesQuantity);
-
-
   }
 
   Future<void> fetchProducts() async {
     try {
       final snapshot =
-      await FirebaseFirestore.instance.collection('sales').get();
+          await FirebaseFirestore.instance.collection('sales').get();
       sales.value = snapshot.docs.map((doc) {
         final data = doc.data();
         return SalesModel(
@@ -39,11 +38,26 @@ class SalesController extends GetxController {
           // image: data['image'],
         );
       }).toList();
+      displayedSales.value = sales; // Initialize displayedSales with all sales
+
       isLoading.value = false;
     } catch (error) {
       print('Error fetching products: $error');
     }
     isLoading.value = false;
+  }
+
+  void searchSales(String query) {
+    if (query.isEmpty) {
+      displayedSales.value =
+          sales; // Show all sales if the search query is empty
+    } else {
+      final lowercaseQuery = query.toLowerCase();
+      displayedSales.value = sales
+          .where(
+              (sale) => sale.productName.toLowerCase().contains(lowercaseQuery))
+          .toList();
+    }
   }
 
   Future<void> updateProductQuantity(String productId, int newQuantity) async {
@@ -53,7 +67,7 @@ class SalesController extends GetxController {
           .doc(productId)
           .update({'quantity': newQuantity});
       final productIndex =
-      products.indexWhere((product) => product.productId == productId);
+          products.indexWhere((product) => product.productId == productId);
       if (productIndex != -1) {
         products[productIndex].quantity = newQuantity;
       }
@@ -61,5 +75,4 @@ class SalesController extends GetxController {
       print('Error updating product quantity: $error');
     }
   }
-
 }
