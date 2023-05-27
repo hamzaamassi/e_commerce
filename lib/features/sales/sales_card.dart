@@ -15,6 +15,11 @@ class SalesCard extends GetView<SalesController> {
     return Container(
       margin: EdgeInsets.only(right: 16, left: 16, top: 16),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        color: Colors.white.withOpacity(
+            0.8), // Update the background color with reduced opacity
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,6 +58,12 @@ class SalesCard extends GetView<SalesController> {
                 onPressed: () => controller.removeProduct(sales.saleId,
                     sales.productId, sales.quantityAfterSale, sales.quantity),
                 style: ButtonStyle(
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            16.0), // Set the border radius here
+                      ),
+                    ),
                     backgroundColor:
                         MaterialStateColor.resolveWith((states) => Colors.red)),
 
