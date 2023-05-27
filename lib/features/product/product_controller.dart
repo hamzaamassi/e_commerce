@@ -8,6 +8,7 @@ import 'package:e_commerce/model/sale.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductsController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -21,7 +22,7 @@ class ProductsController extends GetxController {
   final RxList<SalesModel> sales = <SalesModel>[].obs;
   final RxList<ProductsModel> displayedProducts = <ProductsModel>[].obs;
 
-  late final int quantityAfterSale;
+  late int quantityAfterSale;
 
   @override
   void onInit() {
@@ -52,7 +53,8 @@ class ProductsController extends GetxController {
     isLoading.value = false;
   }
 
-  Future<void> updateProductQuantity(String productId, int newQuantity) async {
+  Future<void> updateProductQuantity(
+      String productId, int newQuantity, int saledQuantity) async {
     try {
       await FirebaseFirestore.instance
           .collection('product')
@@ -100,11 +102,22 @@ class ProductsController extends GetxController {
           ),
           actions: [
             TextButton(
-              child: Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.black),
+              ),
               onPressed: () => Navigator.of(context).pop(),
             ),
             ElevatedButton(
-              child: Text('Buy'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF69A03A),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: Text(
+                'Buy',
+              ),
               onPressed: () {
                 final double totalPrice = quantity * product.price;
                 print(quantity);
@@ -123,19 +136,55 @@ class ProductsController extends GetxController {
       double totalPrice, String productName, productQuantity) async {
     var data = HashMap<String, dynamic>();
     quantityAfterSale = productQuantity - salesQuantity;
-    final salesId = FirebaseFirestore.instance.collection('sales').doc().id;
+    // final salesId = FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(_loginController.userId)
+    //     .collection('sales')
+    //     .doc()
+    //     .id;
+    //.collection('users').doc(userId).collection('sales').add(sale.toMap()).then((docRef)
     data["productId"] = productId;
     data["name"] = productName;
     data["quantity"] = salesQuantity;
     data["totalPrice"] = totalPrice;
-    data["saleId"] = salesId;
+    data["saleId"] = productId;
     data["quantityAfterSale"] = quantityAfterSale;
     data["createdAt"] =
         FieldValue.serverTimestamp(); // add current date and time
-    await FirebaseFirestore.instance.collection('sales').doc(salesId).set(data);
+    // await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(_loginController.userId)
+    //     .collection('sales')
+    //     .doc(productId)
+    //     .set(data);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    final docRef = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(preferences.getString('userId'))
+        .collection('sales')
+        .doc(productId);
+
+    final docSnapshot = await docRef.get();
+
+    int currentQuantity = 0;
+    if (docSnapshot.exists) {
+      final data = docSnapshot.data() as Map<String, dynamic>;
+      currentQuantity = data['quantity'] as int;
+      double currentTotalPrice = data['totalPrice'] as double;
+
+      data['quantity'] = currentQuantity + salesQuantity;
+      data['totalPrice'] = currentTotalPrice + totalPrice;
+      data["quantityAfterSale"] = quantityAfterSale;
+
+      await docRef.set(data, SetOptions(merge: true));
+    } else {
+      await docRef.set(data);
+    }
+
     Get.back();
     Get.snackbar('Success', 'Sales Successfully');
-    updateProductQuantity(productId, quantityAfterSale);
+    updateProductQuantity(
+        productId, quantityAfterSale, currentQuantity + salesQuantity);
   }
 
   Future<void> selectImage(ImageSource source) async {

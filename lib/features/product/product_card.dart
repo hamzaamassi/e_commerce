@@ -15,6 +15,11 @@ class ProductsCard extends GetView<ProductsController> {
     return Container(
       margin: EdgeInsets.only(right: 16, left: 16, top: 16),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        color: Colors.white.withOpacity(
+            0.8), // Update the background color with reduced opacity
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,7 +58,7 @@ class ProductsCard extends GetView<ProductsController> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF69A03A),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
                 ),
                 onPressed: () => controller.showSalesDialog(context, product),

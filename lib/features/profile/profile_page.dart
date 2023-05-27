@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-
 import 'package:e_commerce/core/constants.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,9 +8,13 @@ import 'package:e_commerce/core/widgets/custom_text_field.dart';
 import 'package:e_commerce/features/profile/profile_controller.dart';
 import 'package:e_commerce/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Auth/controllers/login_manager.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   ProfilePage({Key? key}) : super(key: key);
+  final LoginManager loginManager = LoginManager();
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +22,14 @@ class ProfilePage extends GetView<ProfileController> {
         appBar: AppBar(
           actions: [
             IconButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
+                onPressed: () async {
+                  SharedPreferences preferences =
+                      await SharedPreferences.getInstance();
+                  preferences.remove('userId');
+
+                  await FirebaseAuth.instance.signOut();
+                  await loginManager.setLoggedIn(false);
+
                   Get.offAndToNamed(Routes.login);
                 },
                 icon: const Icon(Icons.logout))
