@@ -22,7 +22,7 @@ class ProductsController extends GetxController {
   final RxList<SalesModel> sales = <SalesModel>[].obs;
   final RxList<ProductsModel> displayedProducts = <ProductsModel>[].obs;
 
-  late int quantityAfterSale;
+  int quantityAfterSale = 0;
 
   @override
   void onInit() {
@@ -159,7 +159,7 @@ class ProductsController extends GetxController {
     //     .set(data);
     SharedPreferences preferences = await SharedPreferences.getInstance();
     final docRef = await FirebaseFirestore.instance
-        .collection('users')
+        .collection('user')
         .doc(preferences.getString('userId'))
         .collection('sales')
         .doc(productId);
@@ -219,8 +219,7 @@ class ProductsController extends GetxController {
           .doc(productId)
           .set(data);
       Get.back();
-      Get.snackbar('Success', 'Success Adding product',
-          backgroundColor: Colors.white);
+      Get.snackbar('Success', 'Success Adding product');
       // } else {
       //   data["productId"] = productId;
       //   data["name"] = name;
@@ -239,6 +238,7 @@ class ProductsController extends GetxController {
       nameController.clear();
       quantityController.clear();
       priceController.clear();
+      fetchProducts();
     }
   }
 

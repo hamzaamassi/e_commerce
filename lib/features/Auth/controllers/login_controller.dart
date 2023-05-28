@@ -1,5 +1,4 @@
 import 'package:e_commerce/routes/app_pages.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -49,14 +48,14 @@ class LoginController extends GetxController {
 
       Get.offAndToNamed(Routes.appBottomBar);
     } catch (error) {
-      print("Error: $error");
-      Fluttertoast.showToast(
-        msg: error.toString(),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.grey,
-        textColor: Colors.white,
-      );
+      // print("Error: $error");
+      // Fluttertoast.showToast(
+      //   msg: error.toString(),
+      //   toastLength: Toast.LENGTH_SHORT,
+      //   gravity: ToastGravity.BOTTOM,
+      //   backgroundColor: Colors.grey,
+      //   textColor: Colors.white,
+      // );
     }
   }
 }
