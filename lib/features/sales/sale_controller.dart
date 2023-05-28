@@ -15,7 +15,6 @@ class SalesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("ttt onInit");
     displayedSales.value = [];
     fetchProducts();
     _productsController.fetchProducts();
@@ -26,7 +25,7 @@ class SalesController extends GetxController {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     FirebaseFirestore.instance
-        .collection('user')
+        .collection('users')
         .doc(preferences.getString('userId'))
         .collection('sales')
         .doc(productId)
@@ -39,10 +38,9 @@ class SalesController extends GetxController {
 
   Future<void> fetchProducts() async {
     try {
-    print("ttt fetchProducts");
       SharedPreferences preferences = await SharedPreferences.getInstance();
       final salesSnapshot = await FirebaseFirestore.instance
-          .collection('user')
+          .collection('users')
           .doc(preferences.getString('userId'))
           .collection('sales')
           .get();
