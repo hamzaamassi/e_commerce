@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/features/product/product_controller.dart';
 import 'package:e_commerce/model/product.dart';
 import 'package:e_commerce/model/sale.dart';
 import 'package:get/get.dart';
@@ -9,12 +10,15 @@ class SalesController extends GetxController {
   final RxList<ProductsModel> products = <ProductsModel>[].obs;
   final RxBool isLoading = true.obs;
   final RxList<SalesModel> displayedSales = <SalesModel>[].obs;
+  final ProductsController _productsController = ProductsController();
 
   @override
   void onInit() {
     super.onInit();
+    print("ttt onInit");
     displayedSales.value = [];
     fetchProducts();
+    _productsController.fetchProducts();
   }
 
   void removeProduct(String saleId, String productId, int productQuantity,
@@ -22,20 +26,23 @@ class SalesController extends GetxController {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     FirebaseFirestore.instance
-        .collection('users')
+        .collection('user')
         .doc(preferences.getString('userId'))
         .collection('sales')
         .doc(productId)
         .delete();
     Get.snackbar('Success', 'Deleted Successfully');
     updateProductQuantity(productId, productQuantity + salesQuantity);
+    fetchProducts();
+
   }
 
   Future<void> fetchProducts() async {
     try {
+    print("ttt fetchProducts");
       SharedPreferences preferences = await SharedPreferences.getInstance();
       final salesSnapshot = await FirebaseFirestore.instance
-          .collection('users')
+          .collection('user')
           .doc(preferences.getString('userId'))
           .collection('sales')
           .get();
