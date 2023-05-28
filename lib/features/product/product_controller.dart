@@ -3,12 +3,14 @@
 import 'dart:collection';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/features/sales/sale_controller.dart';
 import 'package:e_commerce/model/product.dart';
 import 'package:e_commerce/model/sale.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 class ProductsController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -27,6 +29,7 @@ class ProductsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    displayedProducts.value = [];
     fetchProducts();
   }
 
@@ -64,6 +67,11 @@ class ProductsController extends GetxController {
           products.indexWhere((product) => product.productId == productId);
       if (index != -1) {
         products[index].quantity = newQuantity;
+        displayedProducts.value = [];
+        fetchProducts();
+        final _salesController = Get.find<SalesController>();
+        _salesController.displayedSales.value = [];
+        _salesController.fetchProducts();
       }
     } catch (error) {
       print('Error updating product quantity: $error');
@@ -136,55 +144,47 @@ class ProductsController extends GetxController {
       double totalPrice, String productName, productQuantity) async {
     var data = HashMap<String, dynamic>();
     quantityAfterSale = productQuantity - salesQuantity;
-    // final salesId = FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(_loginController.userId)
-    //     .collection('sales')
-    //     .doc()
-    //     .id;
-    //.collection('users').doc(userId).collection('sales').add(sale.toMap()).then((docRef)
+
     data["productId"] = productId;
     data["name"] = productName;
     data["quantity"] = salesQuantity;
     data["totalPrice"] = totalPrice;
     data["saleId"] = productId;
     data["quantityAfterSale"] = quantityAfterSale;
-    data["createdAt"] =
-        FieldValue.serverTimestamp(); // add current date and time
-    // await FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(_loginController.userId)
-    //     .collection('sales')
-    //     .doc(productId)
-    //     .set(data);
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    final docRef = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(preferences.getString('userId'))
-        .collection('sales')
-        .doc(productId);
+    data["createdAt"] = FieldValue.serverTimestamp();
+    if (quantityAfterSale >= 0) {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      final docRef = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(preferences.getString('userId'))
+          .collection('sales')
+          .doc(productId);
 
-    final docSnapshot = await docRef.get();
+      final docSnapshot = await docRef.get();
 
-    int currentQuantity = 0;
-    if (docSnapshot.exists) {
-      final data = docSnapshot.data() as Map<String, dynamic>;
-      currentQuantity = data['quantity'] as int;
-      double currentTotalPrice = data['totalPrice'] as double;
+      int currentQuantity = 0;
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data() as Map<String, dynamic>;
+        currentQuantity = data['quantity'] as int;
+        double currentTotalPrice = data['totalPrice'] as double;
 
-      data['quantity'] = currentQuantity + salesQuantity;
-      data['totalPrice'] = currentTotalPrice + totalPrice;
-      data["quantityAfterSale"] = quantityAfterSale;
+        data['quantity'] = currentQuantity + salesQuantity;
+        data['totalPrice'] = currentTotalPrice + totalPrice;
+        data["quantityAfterSale"] = quantityAfterSale;
 
-      await docRef.set(data, SetOptions(merge: true));
+        await docRef.set(data, SetOptions(merge: true));
+      } else {
+        await docRef.set(data);
+      }
+
+      Get.back();
+      Get.snackbar('Success', 'Sales Successfully');
+      updateProductQuantity(
+          productId, quantityAfterSale, currentQuantity + salesQuantity);
     } else {
-      await docRef.set(data);
+      Toast.show("The Quantity is More than the available! ",
+          duration: Toast.lengthShort, gravity: Toast.bottom);
     }
-
-    Get.back();
-    Get.snackbar('Success', 'Sales Successfully');
-    updateProductQuantity(
-        productId, quantityAfterSale, currentQuantity + salesQuantity);
   }
 
   Future<void> selectImage(ImageSource source) async {
@@ -202,39 +202,21 @@ class ProductsController extends GetxController {
       final price = double.parse(priceController.text.trim());
       final productId =
           FirebaseFirestore.instance.collection('product').doc().id;
-      // final storageRef =
-      //     FirebaseStorage.instance.ref().child('products/$productId');
-      // if (image != null) {
-      //   storageRef.putFile(image!);
+
       data["productId"] = productId;
       data["name"] = name;
       data["quantity"] = salesQuantity;
       data["price"] = price;
       data["quantityAfterSale"] = quantityAfterSale;
       // data["image"] = image;
-      data["createdAt"] =
-          FieldValue.serverTimestamp(); // add current date and time
+      data["createdAt"] = FieldValue.serverTimestamp();
       await FirebaseFirestore.instance
           .collection('product')
           .doc(productId)
           .set(data);
       Get.back();
       Get.snackbar('Success', 'Success Adding product');
-      // } else {
-      //   data["productId"] = productId;
-      //   data["name"] = name;
-      //   data["salesQuantity"] = salesQuantity;
-      //   data["price"] = price;
-      //   // data["image"] = ' ';
-      //   data["createdAt"] =
-      //       FieldValue.serverTimestamp(); // add current date and time
-      //   await FirebaseFirestore.instance
-      //       .collection('product')
-      //       .doc(productId)
-      //       .set(data);
-      //   Get.back();
-      //   Get.snackbar('Success', 'Success Adding product');
-      // }
+
       nameController.clear();
       quantityController.clear();
       priceController.clear();

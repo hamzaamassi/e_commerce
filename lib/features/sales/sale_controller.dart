@@ -33,7 +33,6 @@ class SalesController extends GetxController {
     Get.snackbar('Success', 'Deleted Successfully');
     updateProductQuantity(productId, productQuantity + salesQuantity);
     fetchProducts();
-
   }
 
   Future<void> fetchProducts() async {
@@ -89,6 +88,9 @@ class SalesController extends GetxController {
       if (productIndex != -1) {
         products[productIndex].quantity = newQuantity;
       }
+      final _productCont = Get.find<ProductsController>();
+      _productCont.displayedProducts.value = [];
+      _productCont.fetchProducts();
     } catch (error) {
       print('Error updating product quantity: $error');
     }
