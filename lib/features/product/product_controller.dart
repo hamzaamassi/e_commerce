@@ -159,7 +159,7 @@ class ProductsController extends GetxController {
     //     .set(data);
     SharedPreferences preferences = await SharedPreferences.getInstance();
     final docRef = await FirebaseFirestore.instance
-        .collection('user')
+        .collection('users')
         .doc(preferences.getString('userId'))
         .collection('sales')
         .doc(productId);
