@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SalesPage extends GetView<SalesController> {
-  final SalesController salesController = Get.find();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

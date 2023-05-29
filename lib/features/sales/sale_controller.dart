@@ -10,14 +10,12 @@ class SalesController extends GetxController {
   final RxList<ProductsModel> products = <ProductsModel>[].obs;
   final RxBool isLoading = true.obs;
   final RxList<SalesModel> displayedSales = <SalesModel>[].obs;
-  final ProductsController _productsController = ProductsController();
 
   @override
   void onInit() {
     super.onInit();
     displayedSales.value = [];
     fetchProducts();
-    _productsController.fetchProducts();
   }
 
   void removeProduct(String saleId, String productId, int productQuantity,

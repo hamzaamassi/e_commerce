@@ -57,7 +57,7 @@ class ProductsController extends GetxController {
   }
 
   Future<void> updateProductQuantity(
-      String productId, int newQuantity, int saledQuantity) async {
+      String productId, int newQuantity, int salesQuantity) async {
     try {
       await FirebaseFirestore.instance
           .collection('product')
@@ -68,10 +68,8 @@ class ProductsController extends GetxController {
       if (index != -1) {
         products[index].quantity = newQuantity;
         displayedProducts.value = [];
-        fetchProducts();
         final _salesController = Get.find<SalesController>();
         _salesController.displayedSales.value = [];
-        _salesController.fetchProducts();
       }
     } catch (error) {
       print('Error updating product quantity: $error');
@@ -142,6 +140,7 @@ class ProductsController extends GetxController {
 
   void _storeSalesProduct(String productId, int salesQuantity,
       double totalPrice, String productName, productQuantity) async {
+    SalesController salesController = SalesController();
     var data = HashMap<String, dynamic>();
     quantityAfterSale = productQuantity - salesQuantity;
 
@@ -179,6 +178,8 @@ class ProductsController extends GetxController {
 
       Get.back();
       Get.snackbar('Success', 'Sales Successfully');
+      salesController.fetchProducts();
+      fetchProducts();
       updateProductQuantity(
           productId, quantityAfterSale, currentQuantity + salesQuantity);
     } else {
